@@ -5,7 +5,7 @@ Many scholars believe that learning analytics will not demonstrate real utility 
 ## Goals for this unit
 
 * Be able to create an RMarkdown document
-* Be able to download from the Twitter data stream
+* Be able to download from the Twitter data stream and understand APIs
 * Be able to schelude an email from within R
 * Understand the consequences of automatically intervening in student activity
 
@@ -24,6 +24,8 @@ In this unit you will be working towards building several social network diagram
 * [Lawson, C., Beer, C., Rossi, D., Moore, T., & Fleming, J. (2016). Identification of “At Risk” Students Using Learning Analytics: The Ethical Dilemmas of Intervention Strategies in a Higher Education Institution. Educational Technology Research and Development, 64(5), 957–968.](https://doi.org/10.1007/s11423-016-9459-0)
 
 ## Videos
+
+* [MuleSoft Videos. (2015). What is an API?](https://www.youtube.com/watch?v=s7wmiS2mSXY)
 
 * [Peng, R. (2015). R Markdown with RStudio](https://www.youtube.com/watch?v=DNS7i2m4sB0)
 
