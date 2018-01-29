@@ -11,7 +11,7 @@ Many scholars believe that learning analytics will not demonstrate real utility 
 
 ## Tasks for this unit
 
-In this unit you will be working towards building several social network diagrams (graphs/sociograms) of a school classroom and then analyzing both centrality measures and clusters within the network. As background to this task please read over the follwing materials and watch the methodological videos. If you find any other useful materials please add them under Additional Materials at the end of the this page and pull request the change back to this repo.
+In this unit you will be working towards building a system that autogenerates a report and emails it to yourself. Since we do onot have access to LMA data in this assignment you will be downloading data from Twitter. You will need to setup a Twitter developer account in order to do this and understand how an API works. As background to this task please read over the follwing materials and watch the methodological videos. If you find any other useful materials please add them under Additional Materials at the end of the this page and pull request the change back to this repo.
 
 ## Readings
 

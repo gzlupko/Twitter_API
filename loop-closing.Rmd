@@ -5,8 +5,6 @@ date: "1/29/2018"
 output: html_document
 ---
 
-Since we do onot have access to LMA data in this assignment you will be downloading data from Twitter.
-
 ## Twitter Setup
 
 Step 1. Create a Twitter account at Twitter.com and register as a developer at the following link: https://developer.twitter.com/
