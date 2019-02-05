@@ -19,6 +19,8 @@ In this unit you will be working towards building a system that autogenerates a 
 
 * [cronR Documentation](https://rdrr.io/cran/cronR/f/README.md)
 
+* [sendmailR Documentation](https://cran.r-project.org/web/packages/sendmailR/index.html)
+
 * [Whitehill, J., Williams, J. J., Lopez, G., Coleman, C. A., & Reich, J. (2015). Beyond prediction: First steps toward automatic intervention in MOOC student stopout.](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2611750)
 
 * [Lawson, C., Beer, C., Rossi, D., Moore, T., & Fleming, J. (2016). Identification of “At Risk” Students Using Learning Analytics: The Ethical Dilemmas of Intervention Strategies in a Higher Education Institution. Educational Technology Research and Development, 64(5), 957–968.](https://doi.org/10.1007/s11423-016-9459-0)
