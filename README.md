@@ -11,13 +11,15 @@ Many scholars believe that learning analytics will not demonstrate real utility 
 
 ## Tasks for this unit
 
-In this unit you will be working towards building a system that autogenerates a report and emails it to yourself. Since we do onot have access to LMA data in this assignment you will be downloading data from Twitter. You will need to setup a Twitter developer account in order to do this and understand how an API works. As background to this task please read over the follwing materials and watch the methodological videos. If you find any other useful materials please add them under Additional Materials at the end of the this page and pull request the change back to this repo.
+In this unit you will be working towards building a system that autogenerates a report and emails it to yourself. Since we do not have access to LMS data in this assignment you will be downloading data from Twitter. You will need to setup a Twitter developer account in order to do this and understand how an API works. As background to this task please read over the follwing materials and watch the methodological videos. If you find any other useful materials please add them under Additional Materials at the end of the this page and pull request the change back to this repo.
 
 ## Readings
 
 * [RMarkdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)
 
 * [cronR Documentation](https://rdrr.io/cran/cronR/f/README.md)
+
+* [sendmailR Documentation](https://cran.r-project.org/web/packages/sendmailR/index.html)
 
 * [Whitehill, J., Williams, J. J., Lopez, G., Coleman, C. A., & Reich, J. (2015). Beyond prediction: First steps toward automatic intervention in MOOC student stopout.](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2611750)
 
@@ -32,6 +34,6 @@ In this unit you will be working towards building a system that autogenerates a 
 * [Jalayer Academy. (2016).Twitter Mining with R](https://www.youtube.com/watch?v=lT4Kosc_ers)
 
 ## Knowledge Check
-Once you have completed all tasks in the unit, please complete the [knowledge check]().
+Once you have completed all tasks in the unit, please complete the [knowledge check](https://tccolumbia.qualtrics.com/jfe/form/SV_e4E7uZmOWFjhIwJ).
 
 ## Additional Materials
