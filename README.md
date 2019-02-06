@@ -13,6 +13,12 @@ Many scholars believe that learning analytics will not demonstrate real utility 
 
 In this unit you will be working towards building a system that autogenerates a report and emails it to yourself. Since we do not have access to LMS data in this assignment you will be downloading data from Twitter. You will need to setup a Twitter developer account in order to do this and understand how an API works. As background to this task please read over the follwing materials and watch the methodological videos. If you find any other useful materials please add them under Additional Materials at the end of the this page and pull request the change back to this repo.
 
+## Podcast
+
+<iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=2280667359/size=large/bgcol=eae7e1/linkcol=057add/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://hudk4051.bandcamp.com/track/closing-the-loop">Closing the Loop by hudk4051</a></iframe>
+
+* [Victoria, Oren, Xixuan & Meijuan discuss the complexities of closing the loop on ed tech products and review the algebra game DragonBox (dragonbox.com)](http://hudk4051.bandcamp.com/track/closing-the-loop)
+
 ## Readings
 
 * [RMarkdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)
@@ -22,6 +28,8 @@ In this unit you will be working towards building a system that autogenerates a 
 * [sendmailR Documentation](https://cran.r-project.org/web/packages/sendmailR/index.html)
 
 * [Whitehill, J., Williams, J. J., Lopez, G., Coleman, C. A., & Reich, J. (2015). Beyond prediction: First steps toward automatic intervention in MOOC student stopout.](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2611750)
+
+* [Liu, R., & Koedinger, K. R. (2017). Closing the Loop: Automated Data-Driven Cognitive Model Discoveries Lead to Improved Instruction and Learning Gains. Journal of Educational Data Mining, 9(1), 25-41.](https://eric.ed.gov/?id=EJ1155896)
 
 * [Lawson, C., Beer, C., Rossi, D., Moore, T., & Fleming, J. (2016). Identification of “At Risk” Students Using Learning Analytics: The Ethical Dilemmas of Intervention Strategies in a Higher Education Institution. Educational Technology Research and Development, 64(5), 957–968.](https://doi.org/10.1007/s11423-016-9459-0)
 
