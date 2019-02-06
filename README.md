@@ -40,6 +40,6 @@ In this unit you will be working towards building a system that autogenerates a 
 * [Jalayer Academy. (2016).Twitter Mining with R](https://www.youtube.com/watch?v=lT4Kosc_ers)
 
 ## Knowledge Check
-Once you have completed all tasks in the unit, please complete the [knowledge check](https://tccolumbia.qualtrics.com/jfe/form/SV_e4E7uZmOWFjhIwJ).
+Once you have completed all tasks in the unit, please complete the [knowledge check](https://tccolumbia.qualtrics.com/jfe/form/SV_bIchFX8s5M3Fdml).
 
 ## Additional Materials
