@@ -5,6 +5,8 @@ date: "1/29/2018"
 output: html_document
 ---
 
+*WARNING: This project may not work from within China, if you are unable to install or make any of these services work please let Charles know*
+
 ## Twitter Setup
 
 Step 1. Create a Twitter account at Twitter.com and register as a developer at the following link: https://developer.twitter.com/
@@ -34,7 +36,7 @@ You can now download Tweets but remember you can only search from the previous 6
 library(ROAuth)
 library(twitteR)
 
-TL <- searchTwitter("educational data mining", n=50, since='2019-15-01', until='2016-10-08')#Make sure you change the dates here to be 6 days from today.
+TL <- searchTwitter("educational data mining", n=50, since='data 1', until='date 2')#Make sure you change the dates here to be 6 days from today.
 TL <- do.call("rbind", lapply(TL, as.data.frame))
 ```
 
@@ -48,7 +50,7 @@ barplot(counts, las=2)
 hist(TL$created, breaks = "d")
 ```
 
-Using your Twitter data create an RMarkdown report including several visualizations. Using knitr create an html document of your report. Save your html document to the working directory.
+Using your Twitter data create an RMarkdown report including several visualizations. Using knitr to create an html document of your report. Save your html document to the working directory.
 
 ## Setup auto-email
 
@@ -73,6 +75,7 @@ body <- c(
   "Description."
 )
 
+#This email will end up in your spam folder
 sendmail(from, to, subject, body)
 
 
@@ -80,7 +83,7 @@ sendmail(from, to, subject, body)
 
 Investigate the Chron Scheduler 
 
-Mac Users: Open the cronR scheduler by going to the `RStudio Tools` menu -> `Addins` -> `cronR` and hit `execute`. Point cronR at the R script you just created for gmailr and choose to send immediatly.
+Mac Users: Open the cronR scheduler by going to the `RStudio Tools` menu -> `Addins` -> `cronR` and hit `execute`. Point cronR at the R script you just created for gmailr and choose to send immediately.
 
 https://www.bnosac.be/index.php/blog/51-new-rstudio-add-in-to-schedule-r-scripts
 
