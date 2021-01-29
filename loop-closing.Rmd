@@ -5,7 +5,7 @@ date: "1/29/2018"
 output: html_document
 ---
 
-*WARNING: This project may not work from within China, if you are unable to install or make any of these services work please let Charles know*
+*WARNING: This project may not work from within China, if you are unable to install or make any of these services work please let Charles know ASAP*
 
 ## Twitter Setup
 
