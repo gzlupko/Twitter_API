@@ -1,0 +1,45 @@
+---
+title: "fiddle_leaf_report"
+author: "Gian Zlupko"
+date: "4/1/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE, echo = FALSE}
+library(ROAuth) 
+library(twitteR) 
+
+api_key <- "7KhDdJQseh65sfG5dN4A6Nlve"
+
+api_secret <- "MKyYAyDyIDdDXZQLNXz6sPpyrxWFqqeOXIpXqrTzxfUIzv0ILs" 
+
+access_token <- "363179894-yJNsEk5RErQLKDw5SdzF1jK94phSHwJirzziZUi8"
+
+access_token_secret <- "avP6VT9yMEmW2lYYF04hybVl61sjHpUztCX3cuBb3wk6a"
+
+setup_twitter_oauth(api_key, api_secret, access_token, access_token_secret) 
+```
+
+
+
+
+## Download Tweets 
+
+
+```{r}
+library(ROAuth)
+library(twitteR)
+
+TL <- searchTwitter("fiddle leaf fig", n=1,000, since='201-03-20', until='2021-03-30', lang = "en")#Make sure you change the dates here to be 6 days from today.
+
+TL <- do.call("rbind", lapply(TL, as.data.frame))
+View(TL) 
+
+searchTwitter("fiddle leaf fig", n=50, since='2019-03-20', until='2021-03-30', lang = "en")
+```
+
+
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
