@@ -11,22 +11,29 @@ output: html_document
 
 Step 1. Create a Twitter account at Twitter.com and register as a developer at the following link: https://developer.twitter.com/
 
-Step 2. You will then need to register a new app (we need to create an app to access the API as that is what the primary us of the API is) at https://apps.twitter.com/
+Step 2. You will then need to register a new app (we need to create an app to access the API as that is what the primary use of the API is) at https://apps.twitter.com/
 
 Step 3. Within R you will need to install the packages ROAuth and twitteR
 
 Step 4. Copy the following details from your Twitter App page. Don'f forget to put them in quotations!
 
 ```{r}
-api_key <- ""
 
-api_secret <- ""
+library(ROAuth) 
+library(twitteR) 
 
-access_token <- ""
+api_key <- "7KhDdJQseh65sfG5dN4A6Nlve"
 
-access_token_secret <- ""
+api_secret <- "MKyYAyDyIDdDXZQLNXz6sPpyrxWFqqeOXIpXqrTzxfUIzv0ILs" 
 
-setup_twitter_oauth(api_key, api_secret, access_token, access_token_secret)
+access_token <- "363179894-yJNsEk5RErQLKDw5SdzF1jK94phSHwJirzziZUi8"
+
+access_token_secret <- "avP6VT9yMEmW2lYYF04hybVl61sjHpUztCX3cuBb3wk6a"
+
+setup_twitter_oauth(api_key, api_secret, access_token, access_token_secret) 
+1
+
+
 ```
 
 You can now download Tweets but remember you can only search from the previous 6-7 days. Limit the number of tweets you are searching for if you are searching for a popular term using `n=`
@@ -36,7 +43,7 @@ You can now download Tweets but remember you can only search from the previous 6
 library(ROAuth)
 library(twitteR)
 
-TL <- searchTwitter("educational data mining", n=50, since='data 1', until='date 2')#Make sure you change the dates here to be 6 days from today.
+TL <- searchTwitter("fiddle leaf fig", n=50, since='2019-03-20', until='2021-03-30', lang = "en")#Make sure you change the dates here to be 6 days from today.
 TL <- do.call("rbind", lapply(TL, as.data.frame))
 ```
 
@@ -51,6 +58,13 @@ hist(TL$created, breaks = "d")
 ```
 
 Using your Twitter data create an RMarkdown report including several visualizations. Using knitr to create an html document of your report. Save your html document to the working directory.
+
+
+
+
+
+
+
 
 ## Setup auto-email
 
