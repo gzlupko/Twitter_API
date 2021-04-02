@@ -39,8 +39,6 @@ TL <- searchTwitter("monstera", n = 800, since='2020-03-30', until='2021-03-30',
 
 TL <- do.call("rbind", lapply(TL, as.data.frame))
 
-View(TL) 
-
 ```
 
 
@@ -87,37 +85,44 @@ nodes_mat <- as.matrix(new_node)
 monstera <- graph_from_data_frame(d = edge_mat, vertices = nodes_mat, directed = TRUE)
 
 plot(monstera, vertex.label = NA,
-     vertex.size = 5, mode = "undirected", remove.loops = T)   
+     vertex.size = 5, mode = "undirected", remove.loops = T)
 
-
+monstera <- simplify(monstera, remove.multiple = F, remove.loops = T)
+plot(monstera, edge.arrow.size = 0.1, vertex.label = NA, vertex.size = 4, layout = layout_nicely(monstera), edge.color = 'black', directed = T)      
 
 ```
 
 
-Network Visualizations using visNetwork package 
+Network structural properties 
+
 
 ```{r}
 
+# Average path length, indicating number of reply tweets 
+mean_distance(monstera, directed = T) 
 
 
-nodes_df <- lapply(nodes_mat, as.numeric) 
-head(nodes_df) 
-nodes_df <- data.frame(nodes_df) 
-edge_df <- data.frame(edge_mat) 
+# identify largest clique 
+largest_cliques(monstera) 
 
- visNetwork(nodes_df, edge_df, height = "600px", width = "100%") %>%
-   visEdges(shadow = TRUE, 
-            arrows = list(to = list(enabled = TRUE, scaleFactor = 2)), 
-            color = list(color = "lightblue", highlight = "red")) 
- 
- 
- 
-         visLayout(randomSeed = 123, improvedLayout = T) %>%
-   visEdges(smooth = T)
+# plot largest clique; who is in this clique? 
+
+monstera_clique <- largest_cliques(monstera) 
+
+mc_1 <- as.undirected(subgraph(monstera, monstera_clique[[1]]))
+
+
+plot(mc_1,
+     vertex.label.color = "black",
+     vertex.label.cex = 0.9,
+     vertex.size = 4,
+     edge.color = 'gray28',
+     main = "Monstera Clique 1")
 
 
 
 ```
+
 
 
 
