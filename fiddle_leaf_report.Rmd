@@ -10,6 +10,7 @@ library(ROAuth)
 library(twitteR) 
 library(dplyr) 
 library(igraph) 
+library(visNetwork) 
 
 api_key <- "7KhDdJQseh65sfG5dN4A6Nlve"
 
@@ -48,13 +49,7 @@ Prepare for SNA
 
 ```{r}
 
-# create edge list 
-
-edge_list <- TL %>%
-  select(screenName, replyToSN) %>%
-  na.omit() %>%
-  rename(From = screenName, To = replyToSN) 
-
+# create node and edge list  
 
 
 node_list <- TL %>%
@@ -64,39 +59,6 @@ node_list <- TL %>%
 
 
 #write.csv(node_list, "node_list_twitter.csv") 
-  
-
-head(node_list) 
-
-# create node list; add layer with each account's total number of retweets 
-
-accounts_and_retweets <- TL %>% 
-  group_by(screenName) %>%
-  select(screenName, retweetCount) %>%
-  mutate(retweet_total = sum(retweetCount)) 
-
-
-nodes <- accounts_and_retweets %>%
-  select(-retweetCount) %>%
-  distinct(screenName, .keep_all = TRUE) 
-
-
-
-# take 2 
-
-nodes <- TL %>%
-  select(screenName) %>%
-  distinct(screenName) %>%
-  rename(Account = screenName) 
-
-
-edge_list <- TL %>%
-  select(screenName, replyToSN) %>%
-  na.omit() %>%
-  rename(From = screenName, To = replyToSN) 
-
-
-
 
 
 
@@ -109,24 +71,53 @@ edge_list <- TL %>%
 
 #write.csv(edge_list, "edge_list_twitter.csv") 
 
-
+library(readr) 
 new_edge <- read.csv("edge_list_twitter.csv") 
-new_node <- read.csv("node_list_twitter.csv") 
+new_node <- read_csv("node_list_twitter.csv", col_names = FALSE)  
+
+
+
+new_node$account_id <- paste(1:length(new_node)) 
+head(new_node) 
 
 
 edge_mat <- as.matrix(new_edge) 
 nodes_mat <- as.matrix(new_node) 
 
-graph_from_data_frame(d = edge_mat, vertices = nodes_mat, directed = TRUE)
+monstera <- graph_from_data_frame(d = edge_mat, vertices = nodes_mat, directed = TRUE)
 
+plot(monstera, vertex.label = NA,
+     vertex.size = 5, mode = "undirected", remove.loops = T)   
 
-
-  
 
 
 ```
 
 
+Network Visualizations using visNetwork package 
+
+```{r}
+
+
+
+nodes_df <- lapply(nodes_mat, as.numeric) 
+head(nodes_df) 
+nodes_df <- data.frame(nodes_df) 
+edge_df <- data.frame(edge_mat) 
+
+ visNetwork(nodes_df, edge_df, height = "600px", width = "100%") %>%
+   visEdges(shadow = TRUE, 
+            arrows = list(to = list(enabled = TRUE, scaleFactor = 2)), 
+            color = list(color = "lightblue", highlight = "red")) 
+ 
+ 
+ 
+         visLayout(randomSeed = 123, improvedLayout = T) %>%
+   visEdges(smooth = T)
+
+
+
+```
 
 
 
