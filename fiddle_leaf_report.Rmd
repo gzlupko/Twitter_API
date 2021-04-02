@@ -31,7 +31,7 @@ setup_twitter_oauth(api_key, api_secret, access_token, access_token_secret)
 Searching Twitter for the keyword, 'monstera', referring to the monstera houseplant. Monsteras are exploding in popularity today. After mining the monstera data from Twitter, I format it for SNA analysis. I want to use SNA to explore whether a community of houseplant owners is well-connected on Twitter. To do so, I will look at social network structural features.
 
 
-```{r}
+```{r, echo = FALSE}
 library(ROAuth)
 library(twitteR)
 
@@ -45,7 +45,7 @@ TL <- do.call("rbind", lapply(TL, as.data.frame))
 Prepare for SNA
 
 
-```{r}
+```{r, echo = FALSE}
 
 # create node and edge list  
 
@@ -96,7 +96,7 @@ plot(monstera, edge.arrow.size = 0.1, vertex.label = NA, vertex.size = 4, layout
 Network structural properties 
 
 
-```{r}
+```{r, echo = FALSE}
 
 # Average path length, indicating number of reply tweets 
 mean_distance(monstera, directed = T) 
