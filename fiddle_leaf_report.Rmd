@@ -8,6 +8,8 @@ output: html_document
 ```{r setup, include=FALSE, echo = FALSE}
 library(ROAuth) 
 library(twitteR) 
+library(dplyr) 
+library(igraph) 
 
 api_key <- "7KhDdJQseh65sfG5dN4A6Nlve"
 
@@ -25,18 +27,107 @@ setup_twitter_oauth(api_key, api_secret, access_token, access_token_secret)
 
 ## Download Tweets 
 
+Searching Twitter for the keyword, 'monstera', referring to the monstera houseplant. Monsteras are exploding in popularity today. After mining the monstera data from Twitter, I format it for SNA analysis. I want to use SNA to explore whether a community of houseplant owners is well-connected on Twitter. To do so, I will look at social network structural features.
+
 
 ```{r}
 library(ROAuth)
 library(twitteR)
 
-TL <- searchTwitter("fiddle leaf fig", n=1,000, since='201-03-20', until='2021-03-30', lang = "en")#Make sure you change the dates here to be 6 days from today.
+TL <- searchTwitter("monstera", n = 800, since='2020-03-30', until='2021-03-30', lang = "en")
 
 TL <- do.call("rbind", lapply(TL, as.data.frame))
+
 View(TL) 
 
-searchTwitter("fiddle leaf fig", n=50, since='2019-03-20', until='2021-03-30', lang = "en")
 ```
+
+
+Prepare for SNA
+
+
+```{r}
+
+# create edge list 
+
+edge_list <- TL %>%
+  select(screenName, replyToSN) %>%
+  na.omit() %>%
+  rename(From = screenName, To = replyToSN) 
+
+
+
+node_list <- TL %>%
+  select(screenName) %>%
+  na.omit() %>%
+  distinct() 
+
+
+#write.csv(node_list, "node_list_twitter.csv") 
+  
+
+head(node_list) 
+
+# create node list; add layer with each account's total number of retweets 
+
+accounts_and_retweets <- TL %>% 
+  group_by(screenName) %>%
+  select(screenName, retweetCount) %>%
+  mutate(retweet_total = sum(retweetCount)) 
+
+
+nodes <- accounts_and_retweets %>%
+  select(-retweetCount) %>%
+  distinct(screenName, .keep_all = TRUE) 
+
+
+
+# take 2 
+
+nodes <- TL %>%
+  select(screenName) %>%
+  distinct(screenName) %>%
+  rename(Account = screenName) 
+
+
+edge_list <- TL %>%
+  select(screenName, replyToSN) %>%
+  na.omit() %>%
+  rename(From = screenName, To = replyToSN) 
+
+
+
+
+
+
+# create graph object 
+
+edge_list <- TL %>%
+  select(screenName, replyToSN) %>%
+  na.omit() %>%
+  rename(From = screenName, To = replyToSN) 
+
+#write.csv(edge_list, "edge_list_twitter.csv") 
+
+
+new_edge <- read.csv("edge_list_twitter.csv") 
+new_node <- read.csv("node_list_twitter.csv") 
+
+
+edge_mat <- as.matrix(new_edge) 
+nodes_mat <- as.matrix(new_node) 
+
+graph_from_data_frame(d = edge_mat, vertices = nodes_mat, directed = TRUE)
+
+
+
+  
+
+
+```
+
+
+
 
 
 
