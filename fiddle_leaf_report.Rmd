@@ -9,8 +9,7 @@ output: html_document
 library(ROAuth) 
 library(twitteR) 
 library(dplyr) 
-library(igraph) 
-library(visNetwork) 
+library(ggplot2) 
 
 api_key <- "7KhDdJQseh65sfG5dN4A6Nlve"
 
@@ -28,100 +27,132 @@ setup_twitter_oauth(api_key, api_secret, access_token, access_token_secret)
 
 ## Download Tweets 
 
-Searching Twitter for the keyword, 'monstera', referring to the monstera houseplant. Monsteras are exploding in popularity today. After mining the monstera data from Twitter, I format it for SNA analysis. I want to use SNA to explore whether a community of houseplant owners is well-connected on Twitter. To do so, I will look at social network structural features.
+Searching Twitter for the keyword, 'fiddle leaf fig', referring to the popular houseplant. Fiddle leaf figs are exploding in popularity today. After mining the fiddle leaf data from Twitter, I format tweet activity about fiddle leaf figs for data analysis. 
 
 
 ```{r, echo = FALSE}
-library(ROAuth)
-library(twitteR)
 
-TL <- searchTwitter("monstera", n = 800, since='2020-03-30', until='2021-03-30', lang = "en")
+TL <- searchTwitter("fiddle leaf fig", n= 50, since='2021-04-01', until='2021-04-07', lang = "en")#Make sure you change the dates here to be 6 days from today.
 
 TL <- do.call("rbind", lapply(TL, as.data.frame))
 
+
 ```
 
 
-Prepare for SNA
+## Explore Data 
 
+1. Top posts by favorites 
+2. Accounts with most retweets 
+3. Accounts with most favorites 
 
 ```{r, echo = FALSE}
 
-# create node and edge list  
+write.csv(TL, "raw_fiddle_leaf_tweets.csv") 
 
+favorites <- TL %>% 
+  select(screenName, text, favoriteCount) %>%
+  arrange(desc(favoriteCount))  %>%
+  top_n(10)   
 
-node_list <- TL %>%
-  select(screenName) %>%
-  na.omit() %>%
-  distinct() 
+ggplot(data = favorites, aes(x = screenName, y = favoriteCount)) + geom_bar(stat = "identity") + xlab("Screen Name") + ylab("Favorite Count") + ggtitle("Tweets with Most Favorites by Account") 
 
-
-#write.csv(node_list, "node_list_twitter.csv") 
-
-
-
-# create graph object 
-
-edge_list <- TL %>%
-  select(screenName, replyToSN) %>%
-  na.omit() %>%
-  rename(From = screenName, To = replyToSN) 
-
-#write.csv(edge_list, "edge_list_twitter.csv") 
-
-library(readr) 
-new_edge <- read.csv("edge_list_twitter.csv") 
-new_node <- read_csv("node_list_twitter.csv", col_names = FALSE)  
-
-
-
-new_node$account_id <- paste(1:length(new_node)) 
-head(new_node) 
-
-
-edge_mat <- as.matrix(new_edge) 
-nodes_mat <- as.matrix(new_node) 
-
-monstera <- graph_from_data_frame(d = edge_mat, vertices = nodes_mat, directed = TRUE)
-
-plot(monstera, vertex.label = NA,
-     vertex.size = 5, mode = "undirected", remove.loops = T)
-
-monstera <- simplify(monstera, remove.multiple = F, remove.loops = T)
-plot(monstera, edge.arrow.size = 0.1, vertex.label = NA, vertex.size = 4, layout = layout_nicely(monstera), edge.color = 'black', directed = T)      
+   
 
 ```
 
 
-Network structural properties 
 
+Accounts posting most fidle leaf activity recently 
 
 ```{r, echo = FALSE}
 
-# Average path length, indicating number of reply tweets 
-mean_distance(monstera, directed = T) 
+TL %>%
+  group_by(screenName) %>%
+  count(screenName) %>%
+  arrange(desc(n)) %>%
+  top_n(15) 
 
 
-# identify largest clique 
-largest_cliques(monstera) 
-
-# plot largest clique; who is in this clique? 
-
-monstera_clique <- largest_cliques(monstera) 
-
-mc_1 <- as.undirected(subgraph(monstera, monstera_clique[[1]]))
+```
 
 
-plot(mc_1,
-     vertex.label.color = "black",
-     vertex.label.cex = 0.9,
-     vertex.size = 4,
-     edge.color = 'gray28',
-     main = "Monstera Clique 1")
+
+## Text Cleaning
+
+Common terms: Which terms appeared in fiddle leaf tweets more than 5 times? 
+
+
+```{r}
+
+
+library(tm) 
+#Remove the htlm tags from your text
+TL <- gsub("<.*?>", "", TL)
+TL <- gsub("nbsp", "" , TL)
+TL <- gsub("nbspnbspnbsp", "" , TL)
+TL <- gsub("<U+00A0><U+00A0><U+00A0>", "" , TL)
+
+
+
+  
+corpus <- VCorpus(VectorSource(TL)) 
+corpus <- tm_map(corpus, stripWhitespace)
+#Convert to lower case
+corpus <- tm_map(corpus, tolower)
+#Remove pre-defined stop words ('the', 'a', etc)
+corpus <- tm_map(corpus, removeWords, stopwords('english'))
+#Convert words to stems ("education" = "edu") for analysis
+corpus <- tm_map(corpus, stemDocument)
+#Remove numbers
+corpus <- tm_map(corpus, removeNumbers)
+#remove punctuation
+corpus <- tm_map(corpus, removePunctuation)
+#Convert to plain text for mapping by wordcloud package
+corpus <- tm_map(corpus, PlainTextDocument, lazy = TRUE)
+#Convert corpus to a term document matrix - so each word can be analyzed individuallly
+
+corpus <- tm_map(corpus, removeWords, c("false")) 
+
+
+tdm.corpus <- TermDocumentMatrix(corpus)
+
+
+  
+word_count <- sort(rowSums(as.matrix(tdm.corpus)), decreasing=TRUE)
+
+word_count <- rowSums(as.matrix(tdm.corpus))
+word_count<- subset(word_count, word_count >=5)
+word_count <- data.frame(term = names(word_count), freq = word_count)
+
+word_count %>%
+  select(freq) %>%
+  arrange(desc(freq)) %>%
+  top_n(10) 
 
 
 
 ```
+
+
+
+## Text Visualization
+
+```{r}
+head(word_count) 
+
+
+ggplot(data = word_count, aes(x = term, y = freq)) + geom_bar(stat = "identity") 
+
+```
+
+
+
+
+
+
+Clustering 
+
 
 
 
