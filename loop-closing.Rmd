@@ -22,16 +22,16 @@ Step 4. Copy the following details from your Twitter App page. Don'f forget to p
 library(ROAuth) 
 library(twitteR) 
 
-api_key <- "7KhDdJQseh65sfG5dN4A6Nlve"
+api_key <- "yZqskNDe0zw2CoyDoTqa2BHcg"
 
-api_secret <- "MKyYAyDyIDdDXZQLNXz6sPpyrxWFqqeOXIpXqrTzxfUIzv0ILs" 
+api_secret <- "R2qAonm9RU2Y2uBMbICGnKXJ7t8q7mGx6nHn7ARKOmcQVSiQjC" 
 
-access_token <- "363179894-yJNsEk5RErQLKDw5SdzF1jK94phSHwJirzziZUi8"
+access_token <- "363179894-W7l18uV1OzW9zJt2fReX9QaSxK5KUu2UDknbqGdO"
 
-access_token_secret <- "avP6VT9yMEmW2lYYF04hybVl61sjHpUztCX3cuBb3wk6a"
+access_token_secret <- "HuUFQqyaw8U8Gv7KKu0GSmDltKx8byNBdSMnNwtpyzoPw"
 
 setup_twitter_oauth(api_key, api_secret, access_token, access_token_secret) 
-1
+
 
 
 ```
@@ -43,12 +43,11 @@ You can now download Tweets but remember you can only search from the previous 6
 library(ROAuth)
 library(twitteR)
 
-TL <- searchTwitter("fiddle leaf fig", n=50, since='2019-03-20', until='2021-03-30', lang = "en")#Make sure you change the dates here to be 6 days from today.
+TL <- searchTwitter("fiddle leaf fig", n= 50, since='2021-04-01', until='2021-04-07', lang = "en")#Make sure you change the dates here to be 6 days from today.
 
 TL <- do.call("rbind", lapply(TL, as.data.frame))
-View(TL) 
 
-searchTwitter("fiddle leaf fig", n=50, since='2019-03-20', until='2021-03-30', lang = "en")
+
 
 ```
 
@@ -156,8 +155,6 @@ if (searchTwitter("fiddle leaf fig", since='2019-03-20', until='2021-03-30', lan
   send_email(email_from = ..., email_to = ..., port = ..., 
              email_password = ..., body = "The fiddle leaf fig tree is trending. Go check Twitter!" )
 }
-
-
 
 
 
