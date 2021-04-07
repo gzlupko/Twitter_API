@@ -83,7 +83,7 @@ TL %>%
 Common terms: Which terms appeared in fiddle leaf tweets more than 5 times? 
 
 
-```{r}
+```{r, echo = FALSE}
 
 
 library(tm) 
@@ -138,7 +138,9 @@ word_count %>%
 
 ## Text Visualization
 
-```{r}
+Graph the most popular terms found. 
+
+```{r, echo = FALSE}
 head(word_count) 
 
 
@@ -146,18 +148,52 @@ ggplot(data = word_count, aes(x = term, y = freq)) + geom_bar(stat = "identity")
 
 ```
 
+Word Cloud
+
+```{r, echo = FALSE}
+
+library(wordcloud) 
+
+
+m <- as.matrix(tdm.corpus)
+# calculate the frequency of words and sort it by frequency
+word.freq <- sort(rowSums(m), decreasing = T)
+wordcloud(words = names(word.freq), freq = word.freq, min.freq = 3,
+          random.order = F)
+
+
+```
+
+## Sentiment Analysis
+
+Using the 'SentimentAnalysis' package we can see the distribution of overall sentiment in the corpus. 
+
+```{r, echo = FALSE}
+library(SentimentAnalysis) 
+
+sentiment <- analyzeSentiment(tdm.corpus, language = "english") 
+sentiment <- as.data.frame(sentiment) 
+
+summary(sentiment$SentimentGI) 
+
+
+
+```
+
+
+```{r, echo = FALSE}
+
+distr <- sentiment$SentimentGI %>%
+  na.omit() 
+
+
+d <- density(distr)
+plot(d, main = "Overall Sentiment of \n Fiddle Leaf Fig Tweets", 
+     xlab = "Low to High Sentiment")    
+```
 
 
 
 
 
-Clustering 
 
-
-
-
-
-
-
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
